@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { sort } from "fast-sort";
 import Link from "next/link";
 
@@ -12,26 +12,37 @@ interface Props {
   sortOrder: string;
 }
 
+type validSortField = "name" | "email";
+type validSortOrder = "asc" | "desc";
+
 const UserTable = async ({ sortOrder }: Props) => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users", {
     cache: "no-store",
   });
   const users: User[] = await res.json();
 
-  const [key, order] = sortOrder ? sortOrder.split("-") : ["name", "asc"];
+  // Destructure and validate sortOrder queries
+  const [fieldRaw, orderRaw] = sortOrder
+    ? sortOrder.split("-")
+    : ["name", "asc"];
 
-  const sortedUsers =
-    order === "asc"
-      ? sort(users).asc(
-          key === "email" ? (user) => user.email : (user) => user.name
-        )
-      : sort(users).desc(
-          key === "email" ? (user) => user.email : (user) => user.name
-        );
+  const isValidSortField = (field: string): field is validSortField =>
+    field === "name" || field === "email";
+  const isValidSortOrder = (order: string): order is validSortOrder =>
+    order === "asc" || order === "desc";
 
-  const getNextSortOrder = () => {
-    const nextOrder = order === "desc" ? "asc" : "desc";
-    return nextOrder;
+  const field = isValidSortField(fieldRaw) ? fieldRaw : "name";
+  const order = isValidSortOrder(orderRaw) ? orderRaw : "asc";
+
+  // Sort users based on sortOrder queries
+  const sortedUsers = sort(users)[order](
+    field === "email" ? (user) => user.email : (user) => user.name
+  );
+
+  // Alternate sort order on each consequtive click of the same field
+  const getNextSortOrder = (sortField: validSortField) => {
+    if (sortField === field) return order === "desc" ? "asc" : "desc";
+    return "asc";
   };
 
   return (
@@ -39,12 +50,12 @@ const UserTable = async ({ sortOrder }: Props) => {
       <thead>
         <tr>
           <th>
-            <Link href={`/users?sortOrder=name-${getNextSortOrder()}`}>
+            <Link href={`/users?sortOrder=name-${getNextSortOrder('name')}`}>
               Name
             </Link>
           </th>
           <th>
-            <Link href={`/users?sortOrder=email-${getNextSortOrder()}`}>
+            <Link href={`/users?sortOrder=email-${getNextSortOrder('email')}`}>
               Email
             </Link>
           </th>
