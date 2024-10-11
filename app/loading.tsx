@@ -2,7 +2,7 @@ import React from 'react'
 
 const Loading = () => {
   return (
-    <div>Loading...</div>
+    <span className="loading loading-ring loading-lg"></span>
   )
 }
 
