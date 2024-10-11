@@ -1,6 +1,6 @@
-"use client"
-import React from "react";
+import React, { useEffect } from "react";
 import { sort } from "fast-sort";
+import Link from "next/link";
 
 interface User {
   id: number;
@@ -8,35 +8,34 @@ interface User {
   email: string;
 }
 
-const UserTable = () => {
-  const [users, setUsers] = React.useState<User[]>([]);
+interface Props {
+  sortOrder: string;
+}
 
+const UserTable = async ({ sortOrder }: Props) => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+    cache: "no-store",
+  });
+  const users: User[] = await res.json();
 
-  React.useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await fetch("https://jsonplaceholder.typicode.com/users", {
-        cache: "no-store",
-      });
-      const fetchedUsers: User[] = await res.json();
-      setUsers(fetchedUsers);
-    };
-    fetchUsers();
-  }, []);
-
-  const sortByName = () => {
-    setUsers(sort(users).asc(user => user.name));
-  };
+  const sortedUsers = sort(users).asc(
+    sortOrder === "email" ? (user) => user.email : (user) => user.name
+  );
 
   return (
     <table className="table table-zebra">
       <thead>
         <tr>
-          <th onClick={() => sortByName()}>Name</th>
-          <th>Email</th>
+          <th>
+            <Link href="/users?sortOrder=name">Name</Link>
+          </th>
+          <th>
+            <Link href="/users?sortOrder=email">Email</Link>
+          </th>
         </tr>
       </thead>
       <tbody>
-        {users.map((user) => (
+        {sortedUsers.map((user) => (
           <tr key={user.id}>
             <td>{user.name}</td>
             <td>{user.email}</td>
