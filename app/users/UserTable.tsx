@@ -18,19 +18,35 @@ const UserTable = async ({ sortOrder }: Props) => {
   });
   const users: User[] = await res.json();
 
-  const sortedUsers = sort(users).asc(
-    sortOrder === "email" ? (user) => user.email : (user) => user.name
-  );
+  const [key, order] = sortOrder ? sortOrder.split("-") : ["name", "asc"];
+
+  const sortedUsers =
+    order === "asc"
+      ? sort(users).asc(
+          key === "email" ? (user) => user.email : (user) => user.name
+        )
+      : sort(users).desc(
+          key === "email" ? (user) => user.email : (user) => user.name
+        );
+
+  const getNextSortOrder = () => {
+    const nextOrder = order === "desc" ? "asc" : "desc";
+    return nextOrder;
+  };
 
   return (
     <table className="table table-zebra">
       <thead>
         <tr>
           <th>
-            <Link href="/users?sortOrder=name">Name</Link>
+            <Link href={`/users?sortOrder=name-${getNextSortOrder()}`}>
+              Name
+            </Link>
           </th>
           <th>
-            <Link href="/users?sortOrder=email">Email</Link>
+            <Link href={`/users?sortOrder=email-${getNextSortOrder()}`}>
+              Email
+            </Link>
           </th>
         </tr>
       </thead>
