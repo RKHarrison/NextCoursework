@@ -37,11 +37,16 @@ export async function PUT(
   return NextResponse.json(updatedProduct);
 }
 
-export function DELETE(
+export async function DELETE(
   request: NextRequest,
-  { params: { id } }: { params: { id: number } }
+  { params }: { params: { id: string } }
 ) {
-  if (id > 10 || id < 1)
+  const product = await prisma.product.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+  if (!product)
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
-  return NextResponse.json({ id, message: "Product deleted" });
+
+  await prisma.product.delete({ where: { id: parseInt(params.id) } });
+  return NextResponse.json({ id: params.id, message: "Product deleted" });
 }
