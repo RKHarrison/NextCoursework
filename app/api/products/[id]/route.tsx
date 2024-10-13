@@ -11,21 +11,30 @@ export async function GET(
   });
   if (!product)
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
-  
+
   return NextResponse.json(product);
 }
 
 export async function PUT(
   request: NextRequest,
-  { params: { id } }: { params: { id: number } }
+  { params }: { params: { id: string } }
 ) {
   const body = await request.json();
   const validation = schema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 404 });
-  if (id > 10 || id < 1)
+
+  const product = await prisma.product.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+  if (!product)
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
-  return NextResponse.json({ id, name: body.name, price: body.price });
+
+  const updatedProduct = await prisma.product.update({
+    where: { id: product.id },
+    data: { name: body.name, price: body.price, description: body.description },
+  });
+  return NextResponse.json(updatedProduct);
 }
 
 export function DELETE(
