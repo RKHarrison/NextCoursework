@@ -26,7 +26,7 @@ const NavBar = () => {
         </div>
       )}
       {status === "unauthenticated" && (
-        <Link href="/api/auth/signin" className="mr-5">
+        <Link href="/sign-in" className="mr-5">
           Sign In
         </Link>
       )}
