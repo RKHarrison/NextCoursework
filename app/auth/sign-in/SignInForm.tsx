@@ -2,6 +2,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
+import clsx from "clsx";
 
 type formData = {
   Email: string;
@@ -20,7 +21,12 @@ const SignInForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-control space-y-5">
-      <label className={errors.Email ? "input input-bordered input-error border-x-8 flex items-center gap-2" : "input input-bordered flex items-center gap-2"}>
+      <label
+        className={clsx(
+          "input input-bordered flex items-center gap-2",
+          errors.Email && "input-error border-x-8"
+        )}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -43,7 +49,12 @@ const SignInForm = () => {
 
       <p>{errors.Email?.message as string}</p>
 
-      <label className={errors.Password ? "input input-bordered input-error border-x-8 flex items-center gap-2" : "input input-bordered flex items-center gap-2"}>
+      <label
+        className={clsx(
+          "input input-bordered flex items-center gap-2",
+          errors.Password && "input-error border-x-8"
+        )}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
