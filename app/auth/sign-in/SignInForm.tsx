@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 
 const SignInForm = () => {
   const {
@@ -8,7 +9,8 @@ const SignInForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) =>
+    await signIn("credentials", { email: data.Email, password: data.Password });
   console.log(errors);
 
   return (
@@ -18,7 +20,7 @@ const SignInForm = () => {
         placeholder="Email"
         {...register("Email", {
           required: "Your email is reuired to sign in.",
-          pattern: {value: /^\S+@\S+$/i, message: "Invalid email address"},
+          pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" },
         })}
       />
       <p>{errors.Email?.message}</p>
@@ -27,8 +29,8 @@ const SignInForm = () => {
         placeholder="Password"
         {...register("Password", {
           required: "Your password is reuired to sign in.",
-          maxLength: {value: 12, message: "Password is too long"},
-          minLength: {value: 3, message: "Password is too short"},
+          maxLength: { value: 12, message: "Password is too long" },
+          minLength: { value: 3, message: "Password is too short" },
         })}
       />
       <p>{errors.Password?.message}</p>
