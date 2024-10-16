@@ -26,14 +26,19 @@ const SignInForm = () => {
       password: data.Password,
     });
 
-    loginAttempt?.error ? setLoginError(loginAttempt.error) : router.back();
+    loginAttempt?.error
+      ? setLoginError("Sign in failed, please try again!")
+      : router.back();
   };
 
   console.log(errors);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onChange={()=>setLoginError(null)} className="form-control space-y-5">
-
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onChange={() => setLoginError(null)}
+      className="form-control space-y-5"
+    >
       {/* The email input field */}
       <label
         className={clsx(
@@ -98,9 +103,7 @@ const SignInForm = () => {
       <input type="submit" className="btn btn-primary m-5" />
 
       {/* The login error message */}
-      {loginError && (
-        <p className="text-red-500">Could not log in, please try again!</p>
-      )}
+      {loginError && <p className="text-red-500">{loginError}</p>}
     </form>
   );
 };
