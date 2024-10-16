@@ -3,13 +3,18 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 
+type formData = {
+  Email: string;
+  Password: string;
+};
+
 const SignInForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = async (data) =>
+  } = useForm<formData>();
+  const onSubmit = async (data: formData) =>
     await signIn("credentials", { email: data.Email, password: data.Password });
   console.log(errors);
 
@@ -23,7 +28,7 @@ const SignInForm = () => {
           pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" },
         })}
       />
-      <p>{errors.Email?.message}</p>
+      <p>{errors.Email?.message as string}</p>
       <input
         type="password"
         placeholder="Password"
@@ -33,7 +38,7 @@ const SignInForm = () => {
           minLength: { value: 3, message: "Password is too short" },
         })}
       />
-      <p>{errors.Password?.message}</p>
+      <p>{errors.Password?.message as string}</p>
       <input type="submit" />
     </form>
   );
