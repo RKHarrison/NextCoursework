@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
-import { redirect } from "next/dist/server/api-utils";
 
 type formData = {
   Email: string;
@@ -11,17 +11,28 @@ type formData = {
 };
 
 const SignInForm = () => {
+  const [loginError, setLoginError] = React.useState<string | null>(null);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<formData>();
-  const onSubmit = async (data: formData) => await signIn("credentials", { email: data.Email, password: data.Password, callbackUrl: "/" })
+
+  const onSubmit = async (data: formData) => {
+    const loginAttempt = await signIn("credentials", {
+      redirect: false,
+      email: data.Email,
+      password: data.Password,
+    });
+
+    loginAttempt?.error ? setLoginError(loginAttempt.error) : router.back();
+  };
+
   console.log(errors);
 
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="form-control space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} onChange={()=>setLoginError(null)} className="form-control space-y-5">
       <label
         className={clsx(
           "input input-bordered flex items-center gap-2",
@@ -81,6 +92,9 @@ const SignInForm = () => {
       </label>
       <p>{errors.Password?.message as string}</p>
       <input type="submit" className="btn btn-primary m-5" />
+      {loginError && (
+        <p className="text-red-500">Could not log in, please try again!</p>
+      )}
     </form>
   );
 };
