@@ -19,8 +19,8 @@ const SignInForm = () => {
   console.log(errors);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label className="input input-bordered flex items-center gap-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="form-control space-y-5">
+      <label className={errors.Email ? "input input-bordered input-error border-x-8 flex items-center gap-2" : "input input-bordered flex items-center gap-2"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -35,7 +35,7 @@ const SignInForm = () => {
           className="grow"
           placeholder="Email"
           {...register("Email", {
-            required: "Your email is reuired to sign in.",
+            required: "Your email is required to sign in.",
             pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" },
           })}
         />
@@ -43,7 +43,7 @@ const SignInForm = () => {
 
       <p>{errors.Email?.message as string}</p>
 
-      <label className="input input-bordered flex items-center gap-2">
+      <label className={errors.Password ? "input input-bordered input-error border-x-8 flex items-center gap-2" : "input input-bordered flex items-center gap-2"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -61,14 +61,14 @@ const SignInForm = () => {
           className="grow"
           placeholder="Password"
           {...register("Password", {
-            required: "Your password is reuired to sign in.",
+            required: "Your password is required to sign in.",
             maxLength: { value: 12, message: "Password is too long" },
             minLength: { value: 3, message: "Password is too short" },
           })}
         />
       </label>
       <p>{errors.Password?.message as string}</p>
-      <input type="submit" />
+      <input type="submit" className="btn btn-primary m-5" />
     </form>
   );
 };
