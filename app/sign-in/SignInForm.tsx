@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import clsx from "clsx";
+import { redirect } from "next/dist/server/api-utils";
 
 type formData = {
   Email: string;
@@ -15,9 +16,9 @@ const SignInForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<formData>();
-  const onSubmit = async (data: formData) =>
-    await signIn("credentials", { email: data.Email, password: data.Password });
+  const onSubmit = async (data: formData) => await signIn("credentials", { email: data.Email, password: data.Password, callbackUrl: "/" })
   console.log(errors);
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-control space-y-5">
