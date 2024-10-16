@@ -1,11 +1,8 @@
-import React from 'react'
-import SignIn from './SignIn'
+import React from "react";
+import SignInForm from "./SignInForm";
 
-const SignInPage
- = () => {
-  return (
-    <SignIn/>
-  )
-}
+const SignInPage = () => {
+  return <SignInForm />;
+};
 
-export default SignInPage
+export default SignInPage;
