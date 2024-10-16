@@ -33,6 +33,8 @@ const SignInForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} onChange={()=>setLoginError(null)} className="form-control space-y-5">
+
+      {/* The email input field */}
       <label
         className={clsx(
           "input input-bordered flex items-center gap-2",
@@ -58,9 +60,9 @@ const SignInForm = () => {
           })}
         />
       </label>
-
       <p>{errors.Email?.message as string}</p>
 
+      {/* The password input field */}
       <label
         className={clsx(
           "input input-bordered flex items-center gap-2",
@@ -91,7 +93,11 @@ const SignInForm = () => {
         />
       </label>
       <p>{errors.Password?.message as string}</p>
+
+      {/* The submit button */}
       <input type="submit" className="btn btn-primary m-5" />
+
+      {/* The login error message */}
       {loginError && (
         <p className="text-red-500">Could not log in, please try again!</p>
       )}
