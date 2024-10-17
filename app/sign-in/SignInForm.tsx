@@ -63,7 +63,7 @@ const SignInForm = () => {
           placeholder="Email"
           {...register("Email", {
             required: "Your email is required to sign in.",
-            pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" },
+            pattern: { value: /^\S+@\S+\.\S{2,}$/i, message: "Invalid email address" },
           })}
         />
       </label>
@@ -95,7 +95,7 @@ const SignInForm = () => {
           {...register("Password", {
             required: "Your password is required to sign in.",
             maxLength: { value: 12, message: "Password is too long" },
-            minLength: { value: 3, message: "Password is too short" },
+            minLength: { value: 5, message: "Password is too short" },
           })}
         />
       </label>
