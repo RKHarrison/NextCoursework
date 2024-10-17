@@ -1,6 +1,7 @@
 "use client";
 import clsx from "clsx";
 import { sign } from "crypto";
+import Link from "next/link";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -150,6 +151,9 @@ const SignUpForm = () => {
 
       {/* The error message for user already exists */}
       {userExistsError && <p className="text-error">{userExistsError}</p>}
+
+      {/* The link to the sign-in page */}
+      <Link href="/sign-in" className="link link- link-hover">Already have an account? Sign in here.</Link>
 
       {/* The submit button */}
       <button type="submit" className="btn btn-primary">
