@@ -29,7 +29,7 @@ const SignInForm = () => {
 
     loginAttempt?.error
       ? setLoginError("Sign in failed, please try again!")
-      : router.back();
+      : router.push('/dashboard');
   };
 
   console.log(errors);
