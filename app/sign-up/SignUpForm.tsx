@@ -1,6 +1,7 @@
 "use client";
 import clsx from "clsx";
-import React from "react";
+import { sign } from "crypto";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 type formData = {
@@ -10,15 +11,38 @@ type formData = {
 };
 
 const SignUpForm = () => {
+  const [userExistsError, setUserExistsError] = React.useState<string | null>(
+    null
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<formData>();
 
-  const onSubmit = (data: formData) => {
+  const onSubmit = async (data: formData) => {
     console.log(data);
+    const signUpAttempt = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.Email,
+        password: data.Password,
+        name: data.Name,
+      }),
+    });
+    const signUpResponse = await signUpAttempt.json();
+
+    signUpAttempt.ok && console.log("Sign up successful");
+    signUpResponse.message === 'User already exists' &&
+      setUserExistsError(signUpResponse.message);
   };
+
+  useEffect(() => {
+    console.log(userExistsError);
+  }, [userExistsError]);
 
   return (
     <form
@@ -29,7 +53,8 @@ const SignUpForm = () => {
       <label
         className={clsx(
           "input input-bordered flex items-center gap-2 min-w-full",
-          errors.Email && "input-error border-x-8"
+          errors.Email && "input-error border-x-8",
+          userExistsError && "input-error border-x-8"
         )}
       >
         <svg
@@ -48,7 +73,11 @@ const SignUpForm = () => {
           {...register("Email", {
             required:
               "Please provide a valid email address to create an account.",
-            pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" },
+            pattern: {
+              value: /^\S+@\S+\.\S{2,}$/i,
+              message: "Invalid email address",
+            },
+            onChange: () => setUserExistsError(null),
           })}
         />
       </label>
@@ -80,13 +109,14 @@ const SignUpForm = () => {
           {...register("Password", {
             required: "Please provide a valid password to create the account.",
             maxLength: { value: 12, message: "Password is too long" },
-            minLength: { value: 3, message: "Password is too short" },
+            minLength: { value: 5, message: "Password is too short" },
           })}
         />
       </label>
+
       <p className="text-error">{errors.Password?.message as string}</p>
 
-      {/* The name input field */}
+      {/* The name input field
       <label
         className={clsx(
           "input input-bordered flex items-center gap-2 min-w-full",
@@ -109,16 +139,20 @@ const SignUpForm = () => {
             required: "Please provide the name of the owner of this account.",
             maxLength: { value: 70, message: "Provided name is too long." },
             minLength: { value: 2, message: "Provided name is two short" },
-            pattern: {value: /^[\p{L}\p{M}'\-\. ]+$/u, message: "Invalid name provided."}
+            pattern: {
+              value: /^[\p{L}\p{M}'\-\. ]+$/u,
+              message: "Invalid name provided.",
+            },
           })}
         />
       </label>
-      <p className="text-error">{errors.Name?.message as string}</p>
+      <p className="text-error">{errors.Name?.message as string}</p> */}
 
       {/* The submit button */}
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
+      {userExistsError && <p className="text-error">{userExistsError}</p>}
     </form>
   );
 };
