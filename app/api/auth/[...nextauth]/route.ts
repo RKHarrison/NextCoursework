@@ -6,7 +6,8 @@ import bcrypt from "bcrypt";
 
 export const authOptions = {
   pages: {
-    signIn: "/auth/sign-in",
+    signIn: "/sign-in",
+    newUser: "/sign-up",
   },
   theme: {
     logo: "../../NextAppIcon.png",       
