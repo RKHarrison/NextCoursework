@@ -1,9 +1,9 @@
 "use client";
-import clsx from "clsx";
-import { sign } from "crypto";
-import Link from "next/link";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter} from "next/navigation";
+import Link from "next/link";
+import clsx from "clsx";
 
 type formData = {
   Email: string;
@@ -15,6 +15,7 @@ const SignUpForm = () => {
   const [userExistsError, setUserExistsError] = React.useState<string | null>(
     null
   );
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -36,9 +37,9 @@ const SignUpForm = () => {
     });
     const signUpResponse = await signUpAttempt.json();
 
-    signUpAttempt.ok && console.log("Sign up successful");
-    signUpResponse.message === 'User already exists' &&
-      setUserExistsError(signUpResponse.message);
+    signUpResponse.message === 'User already exists' 
+      ? setUserExistsError(signUpResponse.message)
+      : router.push('/sign-in');
   };
 
   useEffect(() => {
