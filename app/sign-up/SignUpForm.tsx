@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 
@@ -37,9 +37,9 @@ const SignUpForm = () => {
     });
     const signUpResponse = await signUpAttempt.json();
 
-    signUpResponse.message === 'User already exists' 
+    signUpResponse.message === "User already exists"
       ? setUserExistsError(signUpResponse.message)
-      : router.push('/sign-in');
+      : router.push("/sign-in");
   };
 
   useEffect(() => {
@@ -154,7 +154,9 @@ const SignUpForm = () => {
       {userExistsError && <p className="text-error">{userExistsError}</p>}
 
       {/* The link to the sign-in page */}
-      <Link href="/sign-in" className="link link- link-hover">Already have an account? Sign in here.</Link>
+      <Link href="/sign-in" className="link link- link-hover">
+        Already have an account? Sign in here.
+      </Link>
 
       {/* The submit button */}
       <button type="submit" className="btn btn-primary">
