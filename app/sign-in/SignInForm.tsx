@@ -67,7 +67,7 @@ const SignInForm = () => {
           })}
         />
       </label>
-      <p>{errors.Email?.message as string}</p>
+      <p className="text-error">{errors.Email?.message as string}</p>
 
       {/* The password input field */}
       <label
@@ -99,7 +99,7 @@ const SignInForm = () => {
           })}
         />
       </label>
-      <p className="input-error">{errors.Password?.message as string}</p>
+      <p className="text-error">{errors.Password?.message as string}</p>
 
       {/* The link to the sign-up page */}
       <Link href='/sign-up' className='link link- link-hover'>New user? Sign up here.</Link>
