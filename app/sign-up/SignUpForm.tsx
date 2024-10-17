@@ -116,7 +116,7 @@ const SignUpForm = () => {
 
       <p className="text-error">{errors.Password?.message as string}</p>
 
-      {/* The name input field
+      {/* The name input field */}
       <label
         className={clsx(
           "input input-bordered flex items-center gap-2 min-w-full",
@@ -146,13 +146,15 @@ const SignUpForm = () => {
           })}
         />
       </label>
-      <p className="text-error">{errors.Name?.message as string}</p> */}
+      <p className="text-error">{errors.Name?.message as string}</p>
+
+      {/* The error message for user already exists */}
+      {userExistsError && <p className="text-error">{userExistsError}</p>}
 
       {/* The submit button */}
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
-      {userExistsError && <p className="text-error">{userExistsError}</p>}
     </form>
   );
 };

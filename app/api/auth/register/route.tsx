@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(5),
+  name: z.string().min(2),
 });
 
 export async function POST(request: NextRequest) {
@@ -29,6 +30,7 @@ export async function POST(request: NextRequest) {
     data: {
       email: body.email,
       hashedPassword,
+      name: body.name
     },
   });
 
