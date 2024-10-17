@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
+import Link from "next/link";
 
 type formData = {
   Email: string;
@@ -34,15 +35,16 @@ const SignInForm = () => {
   console.log(errors);
 
   return (
+    <>
     <form
       onSubmit={handleSubmit(onSubmit)}
       onChange={() => setLoginError(null)}
-      className="form-control space-y-5"
+      className="form-control space-y-5 items-center"
     >
       {/* The email input field */}
       <label
         className={clsx(
-          "input input-bordered flex items-center gap-2",
+          "input input-bordered flex items-center gap-2 min-w-full",
           errors.Email && "input-error border-x-8"
         )}
       >
@@ -70,7 +72,7 @@ const SignInForm = () => {
       {/* The password input field */}
       <label
         className={clsx(
-          "input input-bordered flex items-center gap-2",
+          "input input-bordered flex items-center gap-2 min-w-full",
           errors.Password && "input-error border-x-8"
         )}
       >
@@ -97,14 +99,18 @@ const SignInForm = () => {
           })}
         />
       </label>
-      <p>{errors.Password?.message as string}</p>
+      <p className="input-error">{errors.Password?.message as string}</p>
 
+      {/* The link to the sign-up page */}
+      <Link href='/sign-up' className='link link- link-hover'>New user? Sign up here.</Link>
+      
       {/* The submit button */}
-      <input type="submit" className="btn btn-primary m-5" />
+      <input type="submit" className="btn btn-primary btn-md min-w-52" />
 
       {/* The login error message */}
       {loginError && <p className="text-red-500">{loginError}</p>}
     </form>
+    </>
   );
 };
 
