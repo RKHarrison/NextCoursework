@@ -32,13 +32,12 @@ const SignInForm = () => {
       : router.push("/dashboard");
   };
 
-
   return (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
         onChange={() => setLoginError(null)}
-        className="form-control space-y-5 items-center"
+        className="form-control space-y-2 items-center"
       >
         {/* The email input field */}
         <label
@@ -103,16 +102,19 @@ const SignInForm = () => {
         </label>
         <p className="text-error">{errors.Password?.message as string}</p>
 
+        {/* The submit button */}
+        <button type="submit" className="btn btn-primary btn-md min-w-52">
+          {" "}
+          Sign in with email
+        </button>
+
+        {/* The login error message */}
+        {loginError && <p className="text-red-500">{loginError}</p>}
+
         {/* The link to the sign-up page */}
         <Link href="/sign-up" className="link link- link-hover">
           New user? Sign up here.
         </Link>
-
-        {/* The submit button */}
-        <input type="submit" className="btn btn-primary btn-md min-w-52" />
-
-        {/* The login error message */}
-        {loginError && <p className="text-red-500">{loginError}</p>}
       </form>
     </>
   );
