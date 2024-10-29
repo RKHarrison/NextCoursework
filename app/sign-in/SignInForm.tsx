@@ -103,7 +103,7 @@ const SignInForm = () => {
         <p className="text-error">{errors.Password?.message as string}</p>
 
         {/* The submit button */}
-        <button type="submit" className="btn btn-primary btn-md min-w-52">
+        <button type="submit" className="btn btn-primary btn-md min-w-60">
           {" "}
           Sign in with email
         </button>

@@ -5,10 +5,10 @@ import Image from "next/image";
 
 const ProvderSignInButtons = () => {
   return (
-    <div className="join join-vertical space-y-5 items-center  ">
-      <div className="divider">or</div>
+    <div className="join join-vertical space-y-3 items-center  ">
+      <div className="divider mt-5">or</div>
       <button
-        className="btn btn-outline btn-md min-w-52"
+        className="btn btn-outline btn-md min-w-60"
         onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
       >
         <Image
@@ -20,7 +20,7 @@ const ProvderSignInButtons = () => {
         Sign in with Google
       </button>
       <button
-        className="btn btn-outline btn-md min-w-52"
+        className="btn btn-outline btn-md min-w-60"
         onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
       >
         <Image
