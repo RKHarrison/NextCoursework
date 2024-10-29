@@ -115,6 +115,7 @@ const SignInForm = () => {
         {loginError && <p className="text-red-500">{loginError}</p>}
       </form>
       <button onClick={() => signIn('google', { callbackUrl: "/dashboard" })}>Sign in with Google</button>
+      <button onClick={() => signIn('github', { callbackUrl: "/dashboard" })}>Sign in with GitHub</button>
     </>
   );
 };
