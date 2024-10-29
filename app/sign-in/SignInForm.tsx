@@ -112,9 +112,12 @@ const SignInForm = () => {
         {loginError && <p className="text-red-500">{loginError}</p>}
 
         {/* The link to the sign-up page */}
-        <Link href="/sign-up" className="link link- link-hover">
-          New user? Sign up here.
-        </Link>
+        <text>
+          New user?{" "}
+          <Link href="/sign-up" className="link link-primary link-hover">
+            Sign up here.
+          </Link>
+        </text>
       </form>
     </>
   );
