@@ -8,6 +8,7 @@ import bcrypt from "bcrypt";
 export const authOptions = {
   pages: {
     signIn: "/sign-in",
+    signOut: "/sign-out",
     newUser: "/sign-up",
   },
   theme: {
