@@ -7,8 +7,8 @@ const Home = () => {
     <Image
       src="https://bit.ly/react-cover"
       alt="a sillouhette of a man standing on a mountain beneath a blue sky"
-      width={500}
-      height={500}
+      fill
+      style={{objectFit: "cover"}}
     />
   );
 };
