@@ -9,7 +9,11 @@ import {
   Preview,
 } from "@react-email/components";
 
-const WelcomeTemmplate = () => {
+interface Props {
+  name: string;
+}
+
+const WelcomeTemmplate = ({ name = "Richard" }: Props) => {
   return (
     <Html>
       <Preview>Welcome aboard!</Preview>
@@ -26,6 +30,8 @@ const WelcomeTemmplate = () => {
             >
               Sign in
             </Link>
+            <Text className="text-lg">Thanks,</Text>
+            <Text className="text-xl font-semibold italic">{name}</Text>
           </Container>
         </Body>
       </Tailwind>
