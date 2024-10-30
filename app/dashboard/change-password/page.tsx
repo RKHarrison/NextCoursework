@@ -34,7 +34,7 @@ const ChangePasswordPage = () => {
       const error = await changePassword.json();
       setApiError(error.message);
     }
-    
+
   };
 
   return (
@@ -45,7 +45,8 @@ const ChangePasswordPage = () => {
       <label
         className={clsx(
           "input input-bordered flex items-center gap-2 min-w-full",
-          errors.newPassword && "input-error border-x-8"
+          errors.newPassword && "input-error border-x-8",
+          apiError === "Incorrect password" && "input-error border-x-8"
         )}
       >
         Current password:
