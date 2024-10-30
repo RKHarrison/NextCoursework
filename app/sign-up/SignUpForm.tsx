@@ -154,12 +154,15 @@ const SignUpForm = () => {
       {userExistsError && <p className="text-error">{userExistsError}</p>}
 
       {/* The link to the sign-in page */}
-      <Link href="/sign-in" className="link link- link-hover">
-        Already have an account? Sign in here.
-      </Link>
+      <text>
+        Already have an account?{" "}
+        <Link href="/sign-in" className="link link-primary link-hover">
+          Sign in here.
+        </Link>
+      </text>
 
       {/* The submit button */}
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary min-w-60">
         Submit
       </button>
     </form>
