@@ -9,6 +9,7 @@ const Home = () => {
       alt="a sillouhette of a man standing on a mountain beneath a blue sky"
       fill
       className="object-cover"
+      sizes="100vw"
     />
   );
 };
