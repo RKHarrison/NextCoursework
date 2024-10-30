@@ -6,8 +6,8 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 
 const schema = z.object({
-  currentPassword: z.string().min(5),
-  newPassword: z.string().min(5),
+  currentPassword: z.string().min(5).max(12),
+  newPassword: z.string().min(5).max(12),
 });
 
 export async function PATCH(request: NextRequest) {
