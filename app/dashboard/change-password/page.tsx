@@ -34,7 +34,7 @@ const ChangePasswordPage = () => {
       const error = await changePassword.json();
       setApiError(error.message);
     }
-
+    else alert("Password changed successfully")
   };
 
   return (
