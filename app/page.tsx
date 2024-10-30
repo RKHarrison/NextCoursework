@@ -8,7 +8,7 @@ const Home = () => {
       src="https://bit.ly/react-cover"
       alt="a sillouhette of a man standing on a mountain beneath a blue sky"
       fill
-      style={{objectFit: "cover"}}
+      className="object-cover"
     />
   );
 };
