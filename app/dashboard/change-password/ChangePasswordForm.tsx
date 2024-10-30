@@ -49,10 +49,10 @@ const ChangePasswordForm = () => {
             apiError === "Incorrect password" && "input-error border-x-8"
           )}
         >
-          Current password:
+          Current:
           <input
             type="password"
-            placeholder="..."
+            placeholder="Input current password"
             {...register("currentPassword", {
               required: "Please enter your current password.",
               maxLength: { value: 12, message: "Password is too long" },
@@ -69,10 +69,10 @@ const ChangePasswordForm = () => {
             errors.newPassword && "input-error border-x-8"
           )}
         >
-          New password:
+          New:
           <input
             type="password"
-            placeholder="..."
+            placeholder="Input new password"
             {...register("newPassword", {
               required: "Please enter a new password.",
               maxLength: { value: 12, message: "Password is too long" },
