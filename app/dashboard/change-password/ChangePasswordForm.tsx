@@ -83,7 +83,7 @@ const ChangePasswordForm = () => {
         </label>
         <p className="text-error">{errors.newPassword?.message as string}</p>
   
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary min-w-60">
           Change Password
         </button>
   
