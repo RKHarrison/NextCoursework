@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import mountain from "@/public/mountain.jpg";
+import { Metadata } from "next";
 
 
 const Home = () => {
@@ -20,4 +20,11 @@ const Home = () => {
   );
 };
 
+export const metadata: Metadata = {
+  title: "Home",
+  description: "A simple home page",
+  keywords: ["home", "page"],
+}
+
 export default Home;
+
